@@ -80,12 +80,12 @@ main {
 }
 
 .index_aj1 {
-    width: 280px;
+    width: 320px;
     animation: indexanimate 3s ease-in-out infinite;
 }
 
 .index_aj2 {
-    width: 260px;
+    width: 345px;
     animation: indexanimate2 3s ease-in-out infinite;
 }
 
@@ -94,13 +94,13 @@ main {
         transform: rotate(15deg);
     }
     50% {
-        transform: rotate(-18deg);
+        transform: rotate(-20deg);
     }
 }
 
 @keyframes indexanimate2 {
     0%, 100% {
-        transform: rotate(-18deg);
+        transform: rotate(-20deg);
     }
     50% {
         transform: rotate(15deg);
