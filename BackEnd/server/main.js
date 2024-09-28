@@ -116,6 +116,7 @@ app.post('/chat', async (req, res) => {
         lastVideoId = id; // Update last video ID
     }
 
+    
     try {
         text = await getTranscriptFromYouTube(id)
 
