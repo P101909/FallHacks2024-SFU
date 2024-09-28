@@ -7,5 +7,5 @@ def get_transcript(youtube_url: str) -> str:
     transcript = YouTubeTranscriptApi.get_transcript(video_id)
     transcript_text = " ".join([entry['text'] for entry in transcript])
     
-    return transcript_text
+    transcript_text
 

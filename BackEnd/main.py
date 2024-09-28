@@ -16,7 +16,7 @@ async def get_link(link: YouTubeLink):
     
     # Get the transcript from YouTube link and write it to JSON
     try:
-        transcript = utils.get_transcript(youtube_url)
+        utils.get_transcript(youtube_url)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
