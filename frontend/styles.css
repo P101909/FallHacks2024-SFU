@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("images/Background.png");
+}
+
+header {
+    background-color: #DA4151;
+    color: white;
+    padding: 30px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+nav button {
+    background-color: transparent;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+    border: solid 3px #ffffff;
+    padding: 15px 15px;
+    margin-left: 10px;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+main {
+    display: flex;
+    padding: 20px;
+}
+
+.content-area{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin: 100px 40px 100px 40px;
+}
+
+.content-left, .content-right{
+    background-color: white;
+    border: 3px solid #DA4151;
+    border-radius: 30px;
+    height: 600px;
+    flex: 1;
+    margin-right: 50px
+}
+
+
+.image-area {
+    flex: 0 0 200px;
+}
+
+.index-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.index_aj1 {
+    width: 320px;
+    animation: indexanimate 3s ease-in-out infinite;
+}
+
+.index_aj2 {
+    width: 300px;
+    animation: indexanimate2 3s ease-in-out infinite;
+}
+
+@keyframes indexanimate {
+    0%, 100% {
+        transform: rotate(15deg);
+    }
+    50% {
+        transform: rotate(-15deg);
+    }
+}
+
+@keyframes indexanimate2 {
+    0%, 100% {
+        transform: rotate(-15deg);
+    }
+    50% {
+        transform: rotate(15deg);
+    }
+}
+
+.applejuice {
+    z-index: 1;
+    width: 400px;
+    height: auto;
+    margin-top: 100px;
+    animation: ajanimate 3s ease-in-out infinite;
+}
+
+@keyframes ajanimate{
+    0%, 100%{
+        transform: translateY(-100px);
+    }
+    50%{
+        transform: translateY(0px);
+    }
+}
