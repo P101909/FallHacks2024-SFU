@@ -4,6 +4,33 @@ body {
     padding: 0;
     background-image: url("images/Background.png");
 }
+h3 {
+    font-size: 60px;
+    color: #DA4151;
+    text-align: center;
+
+}
+
+.startButton{
+    font-size: 50px;
+    background-color: rgba(255, 255, 255, 0.694);
+    border-radius: 100px;
+    border: solid 4px #DA4151;
+    padding: 20px;
+    color: #DA4151; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right:40%;
+    margin-left: 40%;
+    text-decoration: none;
+}
+
+.startButton:hover {
+    background-color: #DA4151;
+    color: white;
+}
+
 
 header {
     background-color: #DA4151;
@@ -64,12 +91,12 @@ main {
 }
 
 .index_aj1 {
-    width: 320px;
+    width: 280px;
     animation: indexanimate 3s ease-in-out infinite;
 }
 
 .index_aj2 {
-    width: 300px;
+    width: 260px;
     animation: indexanimate2 3s ease-in-out infinite;
 }
 
@@ -78,25 +105,17 @@ main {
         transform: rotate(15deg);
     }
     50% {
-        transform: rotate(-15deg);
+        transform: rotate(-18deg);
     }
 }
 
 @keyframes indexanimate2 {
     0%, 100% {
-        transform: rotate(-15deg);
+        transform: rotate(-18deg);
     }
     50% {
         transform: rotate(15deg);
     }
-}
-
-.applejuice {
-    z-index: 1;
-    width: 400px;
-    height: auto;
-    margin-top: 100px;
-    animation: ajanimate 3s ease-in-out infinite;
 }
 
 @keyframes ajanimate{
@@ -107,3 +126,4 @@ main {
         transform: translateY(0px);
     }
 }
+
