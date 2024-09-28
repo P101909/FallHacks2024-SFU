@@ -13,11 +13,27 @@ const app = express();
 const port = process.env.PORT || 3000;
 const msgHistoryPath = path.join(__dirname, 'msgHistory.json');
 
+let lastVideoId = null; // To store the last video ID
+
+
+
+
+
 // Use CORS middleware to allow requests from other origins
 app.use(cors());
 
 // Parse JSON bodies
 app.use(express.json());
+
+const clearUserAndAssistantMessages = (jsonFilePath) => {
+    const jsonData = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8'));
+
+    // Filter out "user" and "assistant" messages, keeping only the system message
+    jsonData.messages = jsonData.messages.filter(msg => msg.role === 'system');
+
+    // Write the updated JSON back to the file
+    fs.writeFileSync(jsonFilePath, JSON.stringify(jsonData, null, 2));
+};
 
 // Function to update message history
 function updateMsgHistory(role, content) {
@@ -86,31 +102,35 @@ function extractVideoIdFromUrl(url) {
 // Route to handle chat requests
 app.post('/chat', async (req, res) => {
     const userMessage = req.body.message;
+    const id = extractVideoIdFromUrl(userMessage)
     console.log('Received YouTube URL:', userMessage);
-    id = "QS5-Z-oP-Hw"
-    console.log("hello")
 
-    text = await getTranscriptFromYouTube(id)
-    console.log(text)
-    updateMsgHistory('user', text);
+    if (!userMessage) {
+        return res.status(400).json({ error: 'No message provided' });
+    }
 
-    // if (!userMessage) {
-    //     return res.status(400).json({ error: 'No message provided' });
-    // }
+    // Check if there's a new URL
+    if (id !== lastVideoId) {
+        // New video detected, clear previous user and assistant messages
+        clearUserAndAssistantMessages('msgHistory.json');
+        lastVideoId = id; // Update last video ID
+    }
 
-    // try {
-    //     // Update user message in the history
-    //     updateMsgHistory('user', userMessage);
+    try {
+        text = await getTranscriptFromYouTube(id)
 
-    //     // Get the GPT response based on the updated history
-    //     const gptResponse = await getGPTResponse();
+        // Update user message in the history
+        updateMsgHistory('user', text);
 
-    //     // Respond with the GPT response and image URL
-    //     res.json({ response: gptResponse });
-    // } catch (error) {
-    //     console.error('Error processing chat request:', error);
-    //     res.status(500).json({ error: 'Error processing chat request' });
-    // }
+        // Get the GPT response based on the updated history
+        const gptResponse = await getGPTResponse();
+
+        // Respond with the GPT response and image URL
+        res.json({ response: gptResponse });
+    } catch (error) {
+        console.error('Error processing chat request:', error);
+        res.status(500).json({ error: 'Error processing chat request' });
+    }
 });
 
 // Start the server
