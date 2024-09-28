@@ -1,26 +1,39 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import uvicorn
+import utils
+import AI_utils
 
-# Initialize FastAPI app
 app = FastAPI()
 
-# Define a Pydantic model to validate the request body
+# Model for the request body
 class YouTubeLink(BaseModel):
     url: str
 
-# Create a POST endpoint for receiving the YouTube link
+# POST endpoint to receive YouTube link
 @app.post("/get_link/")
 async def get_link(link: YouTubeLink):
     youtube_url = link.url
-    print(f"Received YouTube URL: {youtube_url}")
     
-    # You can add a function here to process the link, for example:
-    # transcript = fetch_transcript(youtube_url)
-    # For now, we will return a placeholder response
+    # Get the transcript from YouTube link and write it to JSON
+    try:
+        transcript = utils.get_transcript(youtube_url)
+        utils.write_to_json(role="transcript", content=transcript)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
-    return {"message": "YouTube link received!", "url": youtube_url}
+    return {"message": "Transcript fetched and saved to JSON", "url": youtube_url}
 
-# Run the app
+# POST endpoint to give summary
+@app.post("/give_summary/")
+async def give_summary():
+    # Read the transcript from the JSON file
+    try:
+        ai_output = AI_utils.get_AI_output()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+    return {"summary": ai_output}
+
 if __name__ == "__main__":
+    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
