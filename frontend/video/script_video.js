@@ -15,12 +15,9 @@ document.querySelector(".search_button").addEventListener('click', function() {
     } else {
         alert("Invalid URL! Please enter a valid URL.");
     }
-
-    // url validity checker 
-   
 })
 
-
+// url validity checker
 function isValid(url){
     const urlPattern = new RegExp(
         '^(https?:\\/\\/)?' + // protocol (optional)
