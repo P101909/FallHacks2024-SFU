@@ -5,13 +5,17 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors'); // Add this line to import cors
 //const youtubeTranscript = require('youtube-transcript'); // Install a transcript library
-const YoutubeTranscript = require('youtube-transcript');
-Load environment variables from.env file
+//const YoutubeTranscript = require('youtube-transcript');
+//Load environment variables from.env file
+const { getSubtitles } = require('youtube-captions-scraper');
+
+
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 const msgHistoryPath = path.join(__dirname, 'msgHistory.json');
+
 
 // Use CORS middleware to allow requests from other origins
 app.use(cors());
@@ -22,15 +26,16 @@ app.use(express.json());
 // Function to update message history
 function updateMsgHistory(role, content) {
     const history = JSON.parse(fs.readFileSync(msgHistoryPath, 'utf8'));
+    //console.log(history);
 
     const newMessage = {
         role: role,
         content: content
     };
+    console.log(newMessage);
+    //history.messages.push(newMessage);
 
-    history.messages.push(newMessage);
-
-    fs.writeFileSync(msgHistoryPath, JSON.stringify(history, null, 4));
+    fs.writeFile(msgHistoryPath, "wha");
 }
 
 
@@ -56,6 +61,7 @@ async function getGPTResponse() {
 
         const content = response.data.choices[0].message.content;
         updateMsgHistory('assistant', content);  // Update assistant's response in the history
+        console.log('History Messages:', history.messages);//
         return content;
     } catch (error) {
         console.error('Error fetching GPT-4 response:', error);
@@ -67,21 +73,16 @@ async function getGPTResponse() {
 app.post('/chat', async (req, res) => {
     const userMessage = req.body.message;
     console.log('Received YouTube URL:', userMessage);
+
     if (!userMessage) {
         return res.status(400).json({ error: 'No message provided' });
     }
 
     try {
-        //urlharcoded = "https://www.youtube.com/watch?v=QS5-Z-oP-Hw&t=1s";
-
         const transcript = await getTranscriptFromYouTube(userMessage);
-
-
         // Write the transcript to a JSON file
-        writeTranscriptToJSON(transcript);
-
-        // Update user message in the history
-        //updateMsgHistory('user', userMessage);
+        //console.log(transcript);
+        updateMsgHistory('user', transcript);
 
         // Get the GPT response based on the updated history
         const gptResponse = await getGPTResponse();
@@ -94,18 +95,20 @@ app.post('/chat', async (req, res) => {
     }
 });
 
-
-
-// Function to fetch transcript from YouTube URL
 async function getTranscriptFromYouTube(youtubeUrl) {
-    const videoId = extractVideoIdFromUrl(youtubeUrl); // Custom function to extract the video ID
-    const transcript = await YoutubeTranscript.fetchTranscript(videoId);
+    try {
+        const captions = await getSubtitles({ videoID: youtubeUrl }); // Await the asynchronous operation
+        // Extract only the text content and combine into a single string
+        const transcriptText = captions.map(entry => entry.text).join(' ');
+        //console.log('Fetched Transcript:', transcriptText);  // Log the fetched transcript
 
-    // Combine transcript into a single string
-    const transcriptText = transcript.map(entry => entry.text).join(' ');
-
-    return transcriptText;
+        return transcriptText;
+    } catch (error) {
+        console.error('Error fetching subtitles:', error);
+        throw error;  // Rethrow the error so it can be caught in the route handler
+    }
 }
+
 
 // Helper function to extract video ID from YouTube URL
 function extractVideoIdFromUrl(url) {
@@ -118,12 +121,23 @@ app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
 
-// Function to write transcript to JSON file
-function writeTranscriptToJSON(transcript) {
-    const data = {
-        transcript: transcript
-    };
 
-    // Write the transcript to a file
-    fs.writeFileSync('transcript.json', JSON.stringify(data, null, 2), 'utf-8');
-}
+
+// Function to write transcript to JSON file
+// function writeTranscriptToJSON(transcript) {
+//     const data = {
+//         transcript: transcript
+//     };
+//     console.log(JSON.stringify(data, null, 2));
+
+//     // Write the transcript to a file
+//     fs.writeFile('/Users/parsaghaderi/Desktop/SFU/FallHacks2024-SFU/BackEnd/server/msgHistorybc.json', JSON.stringify(data, null, 2), (err) => {
+//         if (err) {
+//             console.log(transcript);
+//             console.error('Error writing to JSON file:', err);
+//         } else {
+//             console.log('Transcript successfully written to JSON file');
+//         }
+//     });
+
+//}
