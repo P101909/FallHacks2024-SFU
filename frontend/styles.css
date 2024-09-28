@@ -5,7 +5,7 @@ body {
     background-image: url("images/Background.png");
 }
 h3 {
-    font-size: 60px;
+    font-size: 50px;
     color: #DA4151;
     text-align: center;
 
@@ -24,7 +24,7 @@ h3 {
     margin-right:40%;
     margin-left: 40%;
     text-decoration: none;
-    z-index: 10;
+    text-shadow: 50 50 50px var(#DA4151);
 }
 
 .startButton:hover {
