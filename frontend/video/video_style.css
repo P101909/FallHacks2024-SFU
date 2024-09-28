@@ -23,6 +23,9 @@ header {
   font-weight: bold;
 }
 
+.search_button{
+  width: 10%;
+}
 
 button {
   background-color: transparent;
@@ -85,7 +88,7 @@ button:hover {
   background-color: #f4f4f4;
   padding: 20px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  align-items: left;
+  justify-content: left;
+  text-align: left;
 }
