@@ -17,11 +17,10 @@ async def get_link(link: YouTubeLink):
     # Get the transcript from YouTube link and write it to JSON
     try:
         transcript = utils.get_transcript(youtube_url)
-        utils.write_to_json(role="transcript", content=transcript)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-    return {"message": "Transcript fetched and saved to JSON", "url": youtube_url}
+    return {"message": "Transcript fetched, ", "url": youtube_url}
 
 # POST endpoint to give summary
 @app.post("/give_summary/")
