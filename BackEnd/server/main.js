@@ -72,6 +72,7 @@ app.post('/chat', async (req, res) => {
     }
 
     try {
+        //urlharcoded = "https://www.youtube.com/watch?v=QS5-Z-oP-Hw&t=1s";
 
         const transcript = await getTranscriptFromYouTube(userMessage);
 
