@@ -66,7 +66,7 @@ async function getGPTResponse() {
 // Route to handle chat requests
 app.post('/chat', async (req, res) => {
     const userMessage = req.body.message;
-
+    console.log('Received YouTube URL:', userMessage);
     if (!userMessage) {
         return res.status(400).json({ error: 'No message provided' });
     }
