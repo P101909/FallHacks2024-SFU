@@ -4,9 +4,9 @@ const dotenv = require('dotenv');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors'); // Add this line to import cors
-const youtubeTranscript = require('youtube-transcript'); // Install a transcript library
-
-// Load environment variables from .env file
+//const youtubeTranscript = require('youtube-transcript'); // Install a transcript library
+const YoutubeTranscript = require('youtube-transcript');
+Load environment variables from.env file
 dotenv.config();
 
 const app = express();
@@ -66,7 +66,7 @@ async function getGPTResponse() {
 // Route to handle chat requests
 app.post('/chat', async (req, res) => {
     const userMessage = req.body.message;
-
+    console.log('Received YouTube URL:', userMessage);
     if (!userMessage) {
         return res.status(400).json({ error: 'No message provided' });
     }
@@ -99,7 +99,7 @@ app.post('/chat', async (req, res) => {
 // Function to fetch transcript from YouTube URL
 async function getTranscriptFromYouTube(youtubeUrl) {
     const videoId = extractVideoIdFromUrl(youtubeUrl); // Custom function to extract the video ID
-    const transcript = await youtubeTranscript.fetchTranscript(videoId);
+    const transcript = await YoutubeTranscript.fetchTranscript(videoId);
 
     // Combine transcript into a single string
     const transcriptText = transcript.map(entry => entry.text).join(' ');

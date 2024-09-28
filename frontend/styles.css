@@ -15,7 +15,7 @@ h3 {
     font-size: 50px;
     background-color: rgba(255, 255, 255, 0.694);
     border-radius: 100px;
-    border: solid 4px #DA4151;
+    border: solid 10px #DA4151;
     padding: 20px;
     color: #DA4151; 
     display: flex;
@@ -24,6 +24,7 @@ h3 {
     margin-right:40%;
     margin-left: 40%;
     text-decoration: none;
+    z-index: 10;
 }
 
 .startButton:hover {
@@ -44,18 +45,6 @@ header {
 .logo {
     font-size: 36px;
     font-weight: bold;
-}
-
-nav button {
-    background-color: transparent;
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 20px;
-    border: solid 3px #ffffff;
-    padding: 15px 15px;
-    margin-left: 10px;
-    border-radius: 40px;
-    cursor: pointer;
 }
 
 main {
@@ -127,3 +116,84 @@ main {
     }
 }
 
+@keyframes thunderAnimation {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.5);
+    }
+  }
+  
+  .thunder {
+    font-size: 20px;
+    color: #FFD700;
+  }
+
+.box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+}
+.box .group{
+    position: relative;
+    transform: rotate(-30deg);
+    display: flex;
+    flex-direction: column;
+    gap: 1 em;
+    color: rgb(255, 255, 115);
+}
+
+.iconContainer{
+    display: flex;
+    gap: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 4em;
+    width: 200vw;
+    animation: bganimate 80s linear infinite;
+}
+@keyframes bganimate{
+    0%, 100%{
+        transform: translateX(-100vw);
+    }
+    50%{
+        transform: translateX(0vw);
+    }
+}
+.iconContainer:nth-child(even){
+    animation: bganimate-reverse 80s linear infinite;
+}
+@keyframes bganimate-reverse{
+    0%, 100%{
+        transform: translate(0vw);
+    }
+    50%{
+        transform: translate(-100vw);
+    }
+}
+.iconContainer i{
+    cursor: default;
+    user-select: none;
+    transition: 2s;
+    color: transparent;
+    opacity: 0.35;
+    -webkit-text-stroke: 1px var(--main-color);
+}
+.iconContainer i:hover{
+    color: var(--main-color);
+    transition: 0s;
+    -webkit-text-stroke: 1px transparent;
+    opacity: 1;
+    text-shadow: 0 0 50px var(--main-color);
+}
