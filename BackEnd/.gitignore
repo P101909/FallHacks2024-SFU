@@ -1,0 +1,52 @@
+# Ignore environment variables
+.env
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+lib/
+lib64/
+parts/
+var/
+sdist/
+wheels/
+share/python-wheels/
+*.dist-info
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environment
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Pytest cache
+.pytest_cache/
+
+# IDE directories
+.vscode/
+.idea/
+
+# Ignore Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# MacOS specific files
+.DS_Store
+
+# Logs
+*.log

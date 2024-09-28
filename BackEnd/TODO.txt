@@ -1,0 +1,18 @@
+
+
+main.py
+- Code HTTP commands/code for server to receive YT link from client  (1hr)
+	- get_Link() // Gets liknk from client
+	- give_summary() // parses JSON, sends the summary to client
+
+
+utils.py
+- Write code to get transcript from YT link + write transcript into json file
+	-> Get_transcript()
+
+- write_to_json(role, content) // Write to json based on role, content
+
+
+AI_utils.py
+- get_AI_output() : return string // send JSON to AI API and get AI output as string
+	-> 

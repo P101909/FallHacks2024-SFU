@@ -1,0 +1,8 @@
+{
+    "messages": [
+        {
+            "role": "system",
+            "content": "Say something short."
+        }
+    ]
+}
