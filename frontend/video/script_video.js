@@ -11,7 +11,7 @@ document.querySelector(".search_button").addEventListener('click', function() {
 
         let summary =  document.querySelector('.summary')
         // fetched data to the right side of = 
-        summary.innerHTML = 'Hello World'
+        summary.innerHTML = '<br><br><br><br><br><br>Hello World'
     } else {
         alert("Invalid URL! Please enter a valid URL.");
     }
