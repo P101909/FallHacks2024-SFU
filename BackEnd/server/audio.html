@@ -10,19 +10,20 @@
     <header>
         <div class="logo">QUANTUM SUMMARY</div>
        <div class = "buttons">
-        <a href="../index.html"><button>HOME</button></a>
-        <a href="../audio/audio.html"><button>AUDIO</button></a>
-        <a href="../video/video.html"><button>VIDEO</button></a>
+        <a href="index.html"><button>HOME</button></a>
+        <a href="audio.html"><button>VIDEO</button></a>
+        <!-- <a href="../video/video.html"><button>VIDEO</button></a> -->
         </div>
     </header>
     <main>
+        <div id = "error"></div>
         <div class="content-area">
             <div class="left_text_box">
-                <input type="text" class="text_box">
+                <input type="text" class="text_box" id="userMessage">
                 <button class = "search_button" id ="sendMessage">
-                    sum
+                    Summarize!
                 </button>
-                <div class="thumbnail"></div>
+                <!-- <div class="thumbnail"></div> -->
             </div>
             <div class="summary" id ="gptResponse" ></div>
                 <!-- Content for right area -->
